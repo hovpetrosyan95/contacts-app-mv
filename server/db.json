@@ -1,0 +1,25 @@
+{
+  "contacts": [
+    {
+      "id": "7e87"
+    },
+    {
+      "id": "821f",
+      "name": "Contact 1",
+      "username": "Contact 1",
+      "description": ""
+    },
+    {
+      "id": "c74d",
+      "name": "ՀՈՎՀ",
+      "username": "www",
+      "description": ""
+    },
+    {
+      "id": "0463",
+      "name": "Contact 4",
+      "username": "contact 4",
+      "description": ""
+    }
+  ]
+}
