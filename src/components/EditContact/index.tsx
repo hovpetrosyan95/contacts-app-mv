@@ -3,6 +3,7 @@ import {
     useQueryClient,
 } from '@tanstack/react-query';
 import Form from "../../components/Form";
+import { API_URL } from '../../constants';
 
 export const EditContact = ({ contactData }) => {
     // Access the client
@@ -10,7 +11,7 @@ export const EditContact = ({ contactData }) => {
 
     // Mutations
     const { mutateAsync: updateContactMutation } = useMutation({
-        mutationFn: (data) => fetch(`http://localhost:3000/contacts/${contactData.id}`, {
+        mutationFn: (data) => fetch(`${API_URL}/contacts/${contactData.id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
         }),

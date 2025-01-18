@@ -3,6 +3,7 @@ import {
     useQuery,
 } from '@tanstack/react-query';
 import SearchInput from '../../components/Search';
+import { API_URL } from '../../constants';
 
 const route = getRouteApi('/contacts');
 
@@ -12,7 +13,7 @@ export function Contacts() {
         //      ^? const data: string | undefined
         queryKey: ['contacts', search],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3000/contacts${search ? `?name=${search}` : ''}`);
+            const response = await fetch(`${API_URL}/contacts${search ? `?name=${search}` : ''}`);
             return response.json();
         },
     });

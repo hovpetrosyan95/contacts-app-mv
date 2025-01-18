@@ -9,6 +9,7 @@ import {
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import { EditContact } from '../../components/EditContact';
+import { API_URL } from '../../constants';
 
 const route = getRouteApi('/contacts/$contactId');
 
@@ -39,13 +40,13 @@ export function ContactPage() {
     const { data: contactData, isLoading } = useQuery({
         queryKey: ['contact', contactId],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3000/contacts/${contactId}`);
+            const response = await fetch(`${API_URL}/contacts/${contactId}`);
             return response.json();
         },
     });
 
     const { mutateAsync: deleteContactMutation } = useMutation({
-        mutationFn: async () => fetch(`http://localhost:3000/contacts/${contactId}`, {
+        mutationFn: async () => fetch(`${API_URL}/contacts/${contactId}`, {
             method: 'DELETE'
         }),
         onSuccess: () => {
