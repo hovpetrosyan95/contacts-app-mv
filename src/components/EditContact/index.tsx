@@ -4,8 +4,13 @@ import {
 } from '@tanstack/react-query';
 import Form from "../../components/Form";
 import { API_URL } from '../../constants';
+import { ContactProps } from '../../constants';
 
-export const EditContact = ({ contactData }) => {
+interface EditContactProps {
+    contactData: ContactProps;
+}
+
+export const EditContact: React.FC<EditContactProps> = ({ contactData }) => {
     // Access the client
     const queryClient = useQueryClient();
 

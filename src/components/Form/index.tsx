@@ -1,11 +1,20 @@
 import { useForm } from '@tanstack/react-form';
+import {
+    UseMutateAsyncFunction
+} from '@tanstack/react-query';
 import FormInput from '../FormInput';
 import FileUpload from '../FormInput/FileUpload';
-
+import { ContactProps } from '../../constants';
 import Button from '../Button';
 import { contactSchema } from '../../utils/validation';
 
-export default function Form({ initialData, onSubmitRequest, isUpdate = false }) {
+interface FormProps {
+    initialData?: ContactProps;
+    onSubmitRequest: UseMutateAsyncFunction<Response, Error, void, unknown>;
+    isUpdate?: boolean;
+}
+
+export default function Form({ initialData, onSubmitRequest, isUpdate = false }: FormProps) {
 
     const form = useForm({
         defaultValues: initialData || {
@@ -19,7 +28,9 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
         },
         onSubmit: async ({ value }) => {
             await onSubmitRequest(value);
-            !isUpdate && form.reset();
+            if (!isUpdate) {
+                form.reset();
+            }
         },
     });
 
@@ -34,7 +45,8 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
         >
             <div className="w-2/6 bg-gray-200 p-4">
                 <form.Field
-                    name='profilePicture' children={(field) => <FileUpload
+                    name='profilePicture'
+                    children={(field) => <FileUpload
                         field={field}
                         labelName="Profile Picture"
                         form={form}

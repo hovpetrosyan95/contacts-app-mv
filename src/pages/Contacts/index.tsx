@@ -9,11 +9,13 @@ const route = getRouteApi('/contacts');
 
 export function Contacts() {
     const { search } = route.useSearch();
-    const { data: contactsList } = useQuery({
-        //      ^? const data: string | undefined
+    const { data: contactsList, isError } = useQuery({
         queryKey: ['contacts', search],
         queryFn: async () => {
             const response = await fetch(`${API_URL}/contacts${search ? `?name=${search}` : ''}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
+            }
             return response.json();
         },
     });
@@ -24,14 +26,15 @@ export function Contacts() {
                 <div className='w-4/5 mr-8'><SearchInput /></div>
                 <div className='w-1/5'><Link to='/contacts/add'>New</Link></div>
             </div>
-
-            <ul>
-                {contactsList?.map((contact: object) =>
-                    <li key={contact.id}>
-                        <Link to="/contacts/$contactId" params={{ contactId: contact.id }} className="[&.active]:font-bold [&.active]:text-2xl ">{contact.name}</Link>
-                    </li>)
-                }
-            </ul>
+            {isError ? 'Oop!' :
+                <ul>
+                    {contactsList?.map((contact: object) =>
+                        <li key={contact.id}>
+                            <Link to="/contacts/$contactId" params={{ contactId: contact.id }} className="[&.active]:font-bold [&.active]:text-2xl ">{contact.name}</Link>
+                        </li>)
+                    }
+                </ul>
+            }
         </div>
         {/* Main content */}
         <div className="flex-1 ml-64 p-8 overflow-y-auto">

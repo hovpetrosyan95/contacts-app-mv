@@ -1,11 +1,18 @@
 import { fileToBase64 } from '../../utils/fileToBase64';
 
+interface FileUploadProps {
+    field: any;
+    labelName: string;
+    form: any;
+    isUpdate: boolean;
+}
+
 export default function FileUpload({
     field,
     labelName,
     form,
     isUpdate
-}) {
+}: FileUploadProps) {
 
     return (<div className="flex flex-col items-center space-y-4">
         <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">{labelName}: </label>

@@ -1,7 +1,14 @@
+import type { FieldApi } from '@tanstack/react-form';
+
+interface FormInputProps {
+    field: FieldApi<any, any, any, any>;
+    labelName: string;
+}
+
 export default function FormInput({
     field,
     labelName
-}) {
+}: FormInputProps) {
     return (<>
         <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">{labelName}: </label>
         <input

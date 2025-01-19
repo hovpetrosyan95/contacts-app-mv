@@ -1,6 +1,12 @@
-import React from 'react';
+import { ReactNode } from '@tanstack/react-router';
 
-const Modal = ({ isOpen, onClose, children }) => {
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: ReactNode
+}
+
+const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     if (!isOpen) return null; // Don't render the modal if it's closed
 
     return (
