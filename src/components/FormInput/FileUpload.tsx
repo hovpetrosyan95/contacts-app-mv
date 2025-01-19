@@ -1,4 +1,4 @@
-import { fileToBase64 } from '../../utils/fileToBase64';
+import { fileToBase64, isImage } from '../../utils/fileToBase64';
 
 interface FileUploadProps {
     field: any;
@@ -36,8 +36,10 @@ export default function FileUpload({
             onBlur={field.handleBlur}
             onChange={async (e) => {
                 const file = e.target.files[0];
-                const imageBase64 = await fileToBase64(file);
-                form.setFieldValue('profilePicture', imageBase64);
+                if (isImage(file)) {
+                    const imageBase64 = await fileToBase64(file);
+                    form.setFieldValue('profilePicture', imageBase64);
+                }
             }}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
         />
