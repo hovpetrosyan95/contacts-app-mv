@@ -1,5 +1,7 @@
 import { useForm } from '@tanstack/react-form';
 import FormInput from '../FormInput';
+import FileUpload from '../FormInput/FileUpload';
+
 import Button from '../Button';
 import { contactSchema } from '../../utils/validation';
 
@@ -10,6 +12,7 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
             name: '',
             username: '',
             description: '',
+            profilePicture: '',
         },
         validators: {
             onSubmit: contactSchema
@@ -17,7 +20,7 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
         onSubmit: async ({ value }) => {
             await onSubmitRequest(value);
             !isUpdate && form.reset();
-        }
+        },
     });
 
     return (
@@ -29,7 +32,16 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
                 form.handleSubmit();
             }}
         >
-            <div className="w-2/6 bg-gray-200 p-4">Left Part</div>
+            <div className="w-2/6 bg-gray-200 p-4">
+                <form.Field
+                    name='profilePicture' children={(field) => <FileUpload
+                        field={field}
+                        labelName="Profile Picture"
+                        form={form}
+                        isUpdate={isUpdate}
+                    />}
+                />
+            </div>
             <div className="w-4/6  p-4">
                 <form.Field
                     name='name'
@@ -55,34 +67,6 @@ export default function Form({ initialData, onSubmitRequest, isUpdate = false })
                     )}
                 />
             </div>
-
-            {/* <div>
-                    <form.Field
-                        name='profilePicture'
-                        children={(field) => (
-                            <>
-                                <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">Profile Picture: </label>
-                                <input
-                                    type='file'
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) => field.handleChange(e.target.value)}
-                                    className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-gray-300 file:bg-white file:text-sm file:font-semibold file:text-indigo-600 hover:file:bg-indigo-100"
-                                />
-                                {field.state.meta.errors ? (
-                                    <p role="alert" className="mt-1 text-sm text-red-600">{field.state.meta.errors.join(', ')}</p>
-                                ) : null}
-                                {field.state.value && (
-                                    <div className="mt-4 w-24 h-24 overflow-hidden rounded-full border border-gray-300">
-                                        <img src={field.state.value} alt="Image Preview" className="w-full h-full object-cover" />
-                                    </div>)}
-                                <></>
-                            </>
-                        )}
-                    />
-                </div> */}
-
         </form>
     )
 }

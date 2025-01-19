@@ -61,8 +61,10 @@ export function ContactPage() {
     return <div>
         {!isEdit ? isLoading ? <div>Loading</div> : <div>
             <div className="flex w-1/2">
-                <div className="w-2/6 bg-gray-200 p-4">Left Part</div>
-                <div className="w-4/6  p-4">
+                <div className="w-2/6 bg-gray-500 p-4 flex items-center justify-center">
+                    <img src={contactData.profilePicture} className='w-32 h-32 rounded-full' />
+                </div>
+                <div className="w-4/6  p-4 bg-gray-200">
                     <h2 className='text-3xl font-bold pb-4'> {contactData.name}</h2>
                     <div className='text-blue-500 pb-2'> {contactData.username}</div>
                     <div> {contactData.description}</div>
